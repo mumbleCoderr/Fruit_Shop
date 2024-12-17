@@ -1,40 +1,33 @@
 package org.example.backend.controllers;
 
-import jakarta.servlet.http.HttpServletResponse;
 import org.example.backend.entities.Product;
-import org.example.backend.repositories.ProductRepository;
+import org.example.backend.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin("http://localhost:5173")
 public class ProductController {
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/getall")
     public List<Product> getAllProducts(){
-        return productRepository.findAll();
+        return productService.getAllProducts();
     }
 
     @PostMapping("/add")
     public Product addProduct(@RequestBody Product product){
-        productRepository.save(product);
-        return product;
+        return productService.addProduct(product);
     }
     @GetMapping("/get/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable("id") int id){
-        Optional<Product> product = productRepository.findById(id);
-
-        if (product.isEmpty()) return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
-
-        return ResponseEntity.ok(product.get());
+        return productService.getProduct(id);
     }
 }
