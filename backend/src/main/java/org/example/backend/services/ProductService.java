@@ -20,9 +20,11 @@ public class ProductService {
     public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
+
     public Product addProduct(Product product){
         return productRepository.save(product);
     }
+
     public ResponseEntity<Product> getProduct(int id){
         Optional<Product> product = productRepository.findById(id);
 
