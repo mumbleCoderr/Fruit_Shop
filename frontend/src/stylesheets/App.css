@@ -1,0 +1,25 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-image: url('../images/background.webp');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 100vh; 
+  color: antiquewhite;
+}
+
+::selection {
+  background-color: rgb(16, 16, 16); 
+}
+
+header {
+  font-size: 10vh;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.9vh;
+  margin-top: 3vh;
+}
+
+a{
+  text-decoration: none;
+}
