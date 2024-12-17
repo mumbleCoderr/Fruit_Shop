@@ -1,0 +1,8 @@
+.item-list-container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    width: 55%;
+    margin: 12vh auto;
+    padding-bottom: 5vh; 
+  }
