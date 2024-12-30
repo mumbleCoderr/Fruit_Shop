@@ -31,12 +31,17 @@ img {
     align-items: center;
     height: 100%;
     width: 100%;
+    
+    transition: transform 0.40s ease
+  }
+
+h2{
+    -webkit-text-stroke: 0.25vh black;
     font-size: 6vh;
     text-transform: uppercase;
     letter-spacing: 1.5vh;
     font-weight: 700;
-    transition: transform 0.40s ease
-  }
+}
 
 .item-info:hover{
     transform: scale(1.1); 

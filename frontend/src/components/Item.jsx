@@ -9,7 +9,7 @@ const Item = ({ fruit }) => {
             <img src={fruit.img} alt={fruit.name} />
           </div>
           <div className="item-info">
-            <p>{fruit.name}</p>
+            <h2>{fruit.name}</h2>
           </div>
         </div>
       </li>
