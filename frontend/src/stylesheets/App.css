@@ -6,20 +6,30 @@ body {
   background-attachment: fixed;
   min-height: 100vh; 
   color: antiquewhite;
+  margin: 0;
+  padding: 0;
 }
 
 ::selection {
   background-color: rgb(16, 16, 16); 
 }
 
-header {
-  font-size: 10vh;
-  text-align: center;
-  font-weight: 700;
-  letter-spacing: 0.9vh;
-  margin-top: 3vh;
-}
-
 a{
   text-decoration: none;
+}
+
+.material-icons.md-48 {
+   font-size: 48px; 
+   filter: grayscale(90%) brightness(70%); 
+   transition: transform 0.40s ease;
+   transform-origin: top;
+}
+
+.material-icons.md-48:hover{
+  filter: grayscale(0%) brightness(100%);
+  transform: scale(1.2);
+}
+
+.material-icons.md-48:last-child{
+  margin-right: 1.5vh;
 }
