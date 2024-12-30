@@ -31,6 +31,12 @@ const ListItems = () => {
 
   return (
     <>
+      <h1>
+        CHOOSE YOUR
+        <br />
+        <span>FRUIT</span>
+      </h1>
+
       <div className="item-list-container">
         <ul>
           {fruits.map((fruit) => (

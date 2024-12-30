@@ -11,6 +11,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+
     font-size: 6vh;
     text-transform: uppercase;
     font-weight: 700;
@@ -37,6 +38,7 @@
 
   #add-title{
     transition: transform 0.40s ease;
+    -webkit-text-stroke: 0.3vh black;
   }
 
   #add-title:hover{
@@ -127,6 +129,7 @@ input{
 
 .btn-text{
   transition: transform 0.40s ease;
+  -webkit-text-stroke: 0.3vh black;
 }
 
 .btn-text:hover{

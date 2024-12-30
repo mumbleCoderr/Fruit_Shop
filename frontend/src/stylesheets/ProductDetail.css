@@ -65,6 +65,7 @@
     font-weight: 700;
     filter: grayscale(90%) brightness(70%);
     transition: transform 0.40s ease;
+    -webkit-text-stroke: 0.15vh black;
   }
 
 .details-btn:hover{

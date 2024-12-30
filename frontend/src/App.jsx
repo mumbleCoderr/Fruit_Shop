@@ -5,11 +5,12 @@ import ProductDetail from "./components/ProductDetail";
 import NotFound from "./components/NotFound";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import TopBar from "./components/TopBar";
 
 const App = () => {
   return (
     <Router>
-      <header>FRUIT SHOP</header>
+      <TopBar />
       <Routes>
         <Route path="/" element={<ListItems />} />
 
