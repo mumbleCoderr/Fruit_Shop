@@ -1,9 +1,8 @@
 package org.example.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Role {
@@ -12,6 +11,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String name;
+    @OneToMany(mappedBy = "role")
+    private List<Account> accounts;
 
     public int getId() {
         return id;
@@ -29,11 +30,11 @@ public class Role {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }
