@@ -34,7 +34,8 @@
 
 .notfound-return-btn:hover{
     filter: grayscale(0%) brightness(100%);
-    transform: scale(1.20); 
+    transform: scale(1.20);
+    -webkit-text-stroke: 0.35vh black; 
 }
 
 

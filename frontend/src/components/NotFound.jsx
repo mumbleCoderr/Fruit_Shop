@@ -12,7 +12,7 @@ const NotFound = () => {
   return (
     <div className="notfound-div">
       <div className="notfound-left-div">
-        <h1 className="notfound-header">404 - Page Not Found</h1>
+        <h2 className="notfound-header">404 - Page Not Found</h2>
         <p className="notfound-p">
           Sorry, the product you're looking for does not exist.
         </p>
