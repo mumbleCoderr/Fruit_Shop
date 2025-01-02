@@ -14,5 +14,5 @@ h1 {
   font-weight: 700;
   letter-spacing: 0.9vh;
   margin-top: 12vh;
-  -webkit-text-stroke: 0.35vh black; /* Obramowanie tekstu w kolorze czarnym */
+  -webkit-text-stroke: 0.35vh black; 
 }
