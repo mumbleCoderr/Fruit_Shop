@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 @Entity
 public class Product {
 
@@ -19,6 +21,8 @@ public class Product {
     private int quantity;
     @NotBlank(message = "img field is mandatory")
     private String img;
+    @OneToMany(mappedBy = "product")
+    private List<OrderedProduct> orderedProducts;
 
     public int getId() {
         return id;
@@ -60,14 +64,11 @@ public class Product {
         this.img = img;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", img='" + img + '\'' +
-                '}';
+    public List<OrderedProduct> getOrderedProducts() {
+        return orderedProducts;
+    }
+
+    public void setOrderedProducts(List<OrderedProduct> orderedProducts) {
+        this.orderedProducts = orderedProducts;
     }
 }

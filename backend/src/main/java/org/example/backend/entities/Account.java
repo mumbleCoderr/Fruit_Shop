@@ -2,13 +2,16 @@ package org.example.backend.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "role_id")
     private Role role;
     private String login;
     private String password;
@@ -16,6 +19,9 @@ public class Account {
     private String surname;
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "account")
+    private List<Order> orders;
 
     public int getId() {
         return id;
@@ -73,16 +79,11 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", role=" + role +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
