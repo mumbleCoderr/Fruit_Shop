@@ -1,0 +1,41 @@
+.container h2 {
+    margin-bottom: 0vh;
+    letter-spacing: 1vh;
+}
+
+.formula-div {
+    display: flex; 
+    width: 100%;
+    background-color: transparent;
+    margin-top: 1.5vh;
+    backdrop-filter: blur(10px);
+    color: antiquewhite;
+  }
+  
+  .login-div {
+    width: 70%; 
+    display: flex; 
+    flex-direction: column; 
+  }
+  
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+
+  }
+  
+  .profile-form input {
+    width: 100%; 
+  }
+  
+  .button-div {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+
+
