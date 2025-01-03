@@ -13,15 +13,13 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    @Column(unique = true)
     private String login;
     private String password;
     private String name;
     private String surname;
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    @OneToMany(mappedBy = "account")
-    private List<Order> orders;
 
     public int getId() {
         return id;
@@ -79,11 +77,4 @@ public class Account {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 }
