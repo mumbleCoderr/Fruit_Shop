@@ -7,11 +7,11 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
+
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
-    @SequenceGenerator(name = "product_seq", sequenceName = "product_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "name field is mandatory")
     private String name;
@@ -21,8 +21,7 @@ public class Product {
     private int quantity;
     @NotBlank(message = "img field is mandatory")
     private String img;
-    @OneToMany(mappedBy = "product")
-    private List<OrderedProduct> orderedProducts;
+
 
     public int getId() {
         return id;
@@ -64,11 +63,5 @@ public class Product {
         this.img = img;
     }
 
-    public List<OrderedProduct> getOrderedProducts() {
-        return orderedProducts;
-    }
 
-    public void setOrderedProducts(List<OrderedProduct> orderedProducts) {
-        this.orderedProducts = orderedProducts;
-    }
 }
