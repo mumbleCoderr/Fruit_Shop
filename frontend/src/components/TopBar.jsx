@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../stylesheets/TopBar.css";
 
 const TopBar = () => {
@@ -49,9 +50,11 @@ const TopBar = () => {
         >
           sort
         </span>
-        <span className="material-icons md-48" title="go to profile options">
-          account_circle
-        </span>
+        <Link to="/SignUp">
+          <span className="material-icons md-48" title="go to profile options">
+            account_circle
+          </span>
+        </Link>
         <span className="material-icons md-48" title="go to the shopping cart">
           shopping_cart
         </span>
