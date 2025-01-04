@@ -50,7 +50,7 @@ const TopBar = () => {
         >
           sort
         </span>
-        <Link to="/SignUp">
+        <Link to="/LogIn">
           <span className="material-icons md-48" title="go to profile options">
             account_circle
           </span>

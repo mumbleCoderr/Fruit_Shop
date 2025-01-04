@@ -2,11 +2,15 @@
     display: grid; 
     width: 50%; 
     margin: 0 auto;
-    place-items: center;
+    /* place-items: center; */
     background-color: transparent;
     height: 100%; 
     margin-top: 17vh;
     color: antiquewhite;
+  }
+
+  .container h2{
+    text-align: center;
   }
 
   .product-detail {
