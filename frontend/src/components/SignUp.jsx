@@ -78,7 +78,7 @@ const SignUp = () => {
     }
     setError(false);
     console.log("Form submitted:", formData);
-    // Możesz dodać API call lub inny kod obsługujący przesłanie formularza
+    // DODAC API CALL NA /signup
   };
 
   return (
@@ -149,7 +149,7 @@ const SignUp = () => {
             className={`btn ${error ? "btn-error" : ""}`}
             onClick={handleSubmit}
           >
-            <p className="btn-text">SUBMIT</p>
+            <p className="btn-text">SIGN UP</p>
           </button>
         </div>
       </div>
