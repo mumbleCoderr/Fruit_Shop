@@ -45,6 +45,12 @@ const TopBar = () => {
           />
         )}
 
+        <Link to="/">
+          <span className="material-icons md-48" title="go to the home page">
+            home
+          </span>
+        </Link>
+
         <span
           className="material-icons md-48"
           title="sort products by alphabetical"
