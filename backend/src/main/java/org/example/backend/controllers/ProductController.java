@@ -1,6 +1,7 @@
 package org.example.backend.controllers;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.example.backend.entities.Product;
 import org.example.backend.services.ProductService;
 import org.springframework.http.HttpStatus;
@@ -16,14 +17,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
+@AllArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
-    @GetMapping("/getall")
+
+    @GetMapping("/noauthority/getall")
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
@@ -32,7 +32,7 @@ public class ProductController {
     public Product addProduct(@Valid @RequestBody Product product){
         return productService.addProduct(product);
     }
-    @GetMapping("/get/{id}")
+    @GetMapping("/noauthority/get/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable("id") int id){
         return productService.getProduct(id);
     }
