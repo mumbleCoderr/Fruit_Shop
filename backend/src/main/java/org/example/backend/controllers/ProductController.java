@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin("http://localhost:5173")
+@RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
 
@@ -29,7 +28,7 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/admin/add")
     public Product addProduct(@Valid @RequestBody Product product){
         return productService.addProduct(product);
     }
