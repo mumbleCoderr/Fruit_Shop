@@ -1,5 +1,6 @@
 package org.example.backend.controllers;
 
+import lombok.AllArgsConstructor;
 import org.example.backend.entities.User;
 import org.example.backend.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,11 @@ import java.util.List;
 
 @RequestMapping("/users")
 @RestController
+@AllArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+
 
     @GetMapping("/me")
     public ResponseEntity<User> authenticatedUser() {
