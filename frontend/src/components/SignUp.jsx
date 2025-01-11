@@ -15,6 +15,8 @@ const SignUp = () => {
   const [shake, setShake] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [successMessage, setSuccessMessage] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -22,7 +24,6 @@ const SignUp = () => {
 
   const validateForm = () => {
     const phoneRegex = /^[\d\s\+]+$/;
-    const phoneValid = /^[+]?[0-9\s]*$/;
 
     if (
       !formData.username.trim() ||
@@ -47,7 +48,7 @@ const SignUp = () => {
     }
 
     if (!phoneRegex.test(formData.phone_number)) {
-      setErrorMessage("This is not a phone number");
+      setErrorMessage("This is not a valid phone number.");
       return false;
     }
 
@@ -55,7 +56,7 @@ const SignUp = () => {
       formData.phone_number.indexOf("+") !==
       formData.phone_number.lastIndexOf("+")
     ) {
-      setErrorMessage("This is not a phone number");
+      setErrorMessage("This is not a valid phone number.");
       return false;
     }
 
@@ -68,7 +69,7 @@ const SignUp = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       setError(true);
@@ -76,9 +77,46 @@ const SignUp = () => {
       setTimeout(() => setShake(false), 500);
       return;
     }
+
     setError(false);
-    console.log("Form submitted:", formData);
-    // DODAC API CALL NA /signup
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+          name: formData.name,
+          surname: formData.surname,
+          phoneNumber: formData.phone_number,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to sign up");
+      }
+
+      const data = await response.json();
+      setSuccessMessage("Sign up successful!");
+      console.log("Response from server:", data);
+
+      setFormData({
+        username: "",
+        password: "",
+        password2: "",
+        name: "",
+        surname: "",
+        phone_number: "",
+      });
+    } catch (err) {
+      setError(true);
+      setErrorMessage(err.message);
+      console.error("Error:", err);
+    }
   };
 
   return (
@@ -91,7 +129,7 @@ const SignUp = () => {
               type="text"
               id="username"
               name="username"
-              placeholder="name"
+              placeholder="username"
               value={formData.username}
               onChange={handleChange}
               required
@@ -154,6 +192,9 @@ const SignUp = () => {
         </div>
       </div>
       {error && <p className="error-message">{errorMessage}</p>}
+      {!error && successMessage && (
+        <p className="success-message">{successMessage}</p>
+      )}
     </div>
   );
 };
