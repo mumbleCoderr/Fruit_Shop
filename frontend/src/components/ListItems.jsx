@@ -1,10 +1,10 @@
 import Item from "./Item";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import AddFormula from "./AddFormula";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/ListItem.css";
+import { getUserRole } from "../js/Auth";
 
 const ListItems = () => {
   const [fruits, setFruits] = useState([]);
@@ -15,7 +15,7 @@ const ListItems = () => {
     const fetchFruits = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/product/getall"
+          "http://localhost:8080/product/noauthority/getall"
         );
         setFruits(response.data);
       } catch (err) {
@@ -31,13 +31,17 @@ const ListItems = () => {
     return <div className="error">Error: {error}</div>;
   }
 
+  const userRole = getUserRole();
+
   return (
     <>
-      <h1>
-        CHOOSE YOUR
-        <br />
-        <span>FRUIT</span>
-      </h1>
+      {userRole !== "ROLE_ADMIN" && (
+        <h1>
+          CHOOSE YOUR
+          <br />
+          <span>FRUIT</span>
+        </h1>
+      )}
 
       <div className="item-list-container">
         <ul>
@@ -46,8 +50,6 @@ const ListItems = () => {
               <Item fruit={fruit} />
             </Link>
           ))}
-
-          <AddFormula setFruits={setFruits} />
         </ul>
       </div>
     </>

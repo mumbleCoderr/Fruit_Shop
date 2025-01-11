@@ -16,7 +16,7 @@
     text-transform: uppercase;
     font-weight: 700;
 
-    margin-top: 15vh;
+    margin-top: 0vh;
   }
 
 .add-div:hover {
@@ -42,7 +42,7 @@
   }
 
   #add-title:hover{
-    transform: scale(1.1); 
+    transform: scale(1.2); 
   }
 
 form{

@@ -1,10 +1,16 @@
-import jwt_decode from "jwt-decode";
-
 export const getUserRole = () => {
-  const token = localStorage.getItem('jwt_token');
+  const token = localStorage.getItem("jwtToken");
   if (token) {
-    const decodedToken = jwt_decode(token);
-    return decodedToken.authority;
+    try {
+      const base64Payload = token.split(".")[1];
+      const payload = JSON.parse(atob(base64Payload));
+      return payload.authorities;
+    } catch (error) {
+      console.error("Error decoding token manually:", error);
+    }
   }
   return null;
 };
+
+
+
