@@ -1,7 +1,7 @@
 import "../stylesheets/AddFormula.css";
 import React, { useState } from "react";
 
-const AddFormula = ({ setFruits }) => {
+const AddFormula = () => {
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -38,17 +38,17 @@ const AddFormula = ({ setFruits }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/add", {
+      const token = localStorage.getItem("jwtToken");
+      const response = await fetch("http://localhost:8080/product/admin/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        const newProduct = await response.json();
-        setFruits((prevFruits) => [...prevFruits, newProduct]);
         console.log("Product added successfully!");
         setFormData({ name: "", price: "", quantity: "", img: "" });
         setIsExpanded(false);
@@ -56,9 +56,11 @@ const AddFormula = ({ setFruits }) => {
         setShake(false);
       } else {
         console.error("Failed to add product.");
+        setError("Failed to add product. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
+      setError("An error occurred. Please try again.");
     }
   };
 
@@ -128,7 +130,7 @@ const AddFormula = ({ setFruits }) => {
             </div>
           </form>
         ) : (
-          <p id="add-title">Click to add a product</p>
+          <p id="add-title">ADD A PRODUCT</p>
         )}
       </div>
 

@@ -14,7 +14,7 @@ const ProductDetail = () => {
     const fetchFruit = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/product/get/${id}`
+          `http://localhost:8080/product/noauthority/get/${id}`
         );
         setFruit(response.data);
       } catch (err) {
