@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importujemy useNavigate
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../stylesheets/LogIn.css";
 
 const LogIn = () => {
@@ -12,7 +13,7 @@ const LogIn = () => {
   const [shake, setShake] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate(); // Hook nawigacyjny do zmiany strony
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +30,7 @@ const LogIn = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       setError(true);
@@ -38,13 +39,28 @@ const LogIn = () => {
       return;
     }
     setError(false);
-    console.log("Form submitted:", formData);
-    // DODAJ API CALL NA /login
+
+    try {
+      const response = await axios.post("http://localhost:8080/auth/login", {
+        username: formData.username,
+        password: formData.password,
+      });
+
+      const { token } = response.data;
+      localStorage.setItem("jwtToken", token);
+
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setError(true);
+      setErrorMessage("Invalid username or password.");
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
+    }
   };
 
-  // Funkcja obsługująca kliknięcie przycisku SIGN UP
   const handleSignUpRedirect = () => {
-    navigate("/SignUp"); // Przechodzi do strony /SignUp
+    navigate("/SignUp");
   };
 
   return (

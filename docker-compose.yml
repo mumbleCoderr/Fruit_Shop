@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend  # Ścieżka do folderu z frontendem
+    ports:
+      - "5173:5173"         # Mapowanie portów (frontend na porcie 5173)
+    volumes:
+      - ./frontend:/app  # Mapowanie folderu frontend z lokalnego systemu plików do kontenera
+      - /app/node_modules  # Zabezpieczenie przed nadpisaniem node_modules w kontenerze
+    environment:
+      - VITE_API_URL=http://backend:8080/api  # Link do backendu
+    command: npm run dev
+    networks:
+      - mynetwork
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend  # Ścieżka do folderu z backendem
+    ports:
+      - "8080:8080"        # Mapowanie portów (backend na porcie 8080)
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@//db-oracle02.pjwstk.edu.pl:1521/baza.pjwstk.edu.pl  # Połączenie do bazy danych Oracle
+      - SPRING_DATASOURCE_USERNAME=s27339   # Użytkownik bazy danych
+      - SPRING_DATASOURCE_PASSWORD=oracle12   # Hasło bazy danych
+    depends_on:
+      - frontend   # Backend uruchomi się po frontendzie
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

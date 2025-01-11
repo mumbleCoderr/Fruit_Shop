@@ -13,7 +13,9 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchFruit = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/get/${id}`);
+        const response = await axios.get(
+          `http://localhost:8080/product/get/${id}`
+        );
         setFruit(response.data);
       } catch (err) {
         setError(err.message);
