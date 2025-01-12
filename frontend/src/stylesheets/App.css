@@ -22,7 +22,7 @@ a{
    font-size: 48px; 
    filter: grayscale(90%) brightness(70%); 
    transition: transform 0.40s ease;
-   transform-origin: top;
+   transform-origin: top center;
 }
 
 .material-icons.md-48:hover{

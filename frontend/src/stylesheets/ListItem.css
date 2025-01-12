@@ -4,7 +4,7 @@
     justify-content: flex-start; 
     width: 55%;
     margin: 5vh auto;
-    padding-bottom: 5vh; 
+    
   }
 
  
@@ -16,3 +16,29 @@ h1 {
   margin-top: 12vh;
   -webkit-text-stroke: 0.35vh black; 
 }
+
+.pages-container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 3vh;
+  padding-bottom: 5vh;
+}
+
+#arrow{
+  transform-origin: top;
+  color: white;
+  padding: 0;
+  margin: 0;
+  font-size: 72px;
+  transform-origin: center;
+}
+
+.arrow-btn{
+  background-color: rgb(35, 35, 35);
+  border: none;
+  padding: 1vh;
+  margin: 0;
+  width: 100%;
+}
+
