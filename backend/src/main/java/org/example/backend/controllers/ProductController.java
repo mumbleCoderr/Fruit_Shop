@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.backend.entities.Product;
 import org.example.backend.services.ProductService;
+import org.hibernate.query.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,22 +20,27 @@ import java.util.Map;
 @RequestMapping("/product")
 @AllArgsConstructor
 public class ProductController {
+
     private final ProductService productService;
 
 
+    @GetMapping("/noauthority/totalpages")
+    public ResponseEntity<Integer> getTotalPages(){
+        return productService.getTotalPages();
+    }
 
-    @GetMapping("/noauthority/getall")
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    @GetMapping("/noauthority/getall/{page}")
+    public ResponseEntity<List<Product>> getAllProducts(@PathVariable("page") int page){
+        return productService.getAllProducts(page);
+    }
+    @GetMapping("/noauthority/get/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable("id") int id){
+        return productService.getProduct(id);
     }
 
     @PostMapping("/admin/add")
     public Product addProduct(@Valid @RequestBody Product product){
         return productService.addProduct(product);
-    }
-    @GetMapping("/noauthority/get/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") int id){
-        return productService.getProduct(id);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
