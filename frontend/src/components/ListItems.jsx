@@ -7,13 +7,12 @@ import "../stylesheets/ListItem.css";
 import { getUserRole } from "../js/Auth";
 
 const ListItems = () => {
-  const [fruits, setFruits] = useState([]); // Stan dla produktów
-  const [error, setError] = useState(null); // Stan dla błędów
-  const [page, setPage] = useState(0); // Stan dla numeru strony
-  const [totalPages, setTotalPages] = useState(0); // Stan dla liczby stron
+  const [fruits, setFruits] = useState([]);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
 
-  // Fetch products on page change
   useEffect(() => {
     const fetchFruits = async () => {
       try {
@@ -28,23 +27,22 @@ const ListItems = () => {
     };
 
     fetchFruits();
-  }, [page]); // Ponownie ładowanie danych przy zmianie strony
+  }, [page]);
 
-  // Fetch total pages on component mount
   useEffect(() => {
     const fetchTotalPages = async () => {
       try {
         const response = await axios.get(
           "http://localhost:8080/product/noauthority/totalpages"
         );
-        setTotalPages(response.data); // Zakładając, że API zwraca liczbę stron
+        setTotalPages(response.data);
       } catch (err) {
         console.error("Błąd podczas pobierania liczby stron:", err.message);
       }
     };
 
     fetchTotalPages();
-  }, []); // Tylko na starcie komponentu
+  }, []);
 
   if (error) {
     return <div className="error">Error: {error}</div>;
@@ -70,25 +68,32 @@ const ListItems = () => {
             </Link>
           ))}
         </ul>
-      </div>
 
-      {/* Paginacja */}
-      <div className="pagination">
-        <button
-          onClick={() => setPage(page - 1)}
-          disabled={page <= 0} // Zablokuj przycisk "Previous" na pierwszej stronie
-        >
-          Previous
-        </button>
-        <span>
-          Page {page + 1} of {totalPages}
-        </span>
-        <button
-          onClick={() => setPage(page + 1)}
-          disabled={page >= totalPages - 1} // Zablokuj przycisk "Next" na ostatniej stronie
-        >
-          Next
-        </button>
+        <div className="pages-container">
+          <button
+            className="arrow-btn"
+            onClick={() => setPage(page - 1)}
+            disabled={page <= 0}
+          >
+            <span
+              className="material-icons md-48"
+              id="arrow"
+              title="previous page"
+            >
+              arrow_back_ios
+            </span>
+          </button>
+          <span></span>
+          <button
+            className="arrow-btn"
+            onClick={() => setPage(page + 1)}
+            disabled={page >= totalPages - 1}
+          >
+            <span className="material-icons md-48" id="arrow" title="next page">
+              arrow_forward_ios
+            </span>
+          </button>
+        </div>
       </div>
     </>
   );

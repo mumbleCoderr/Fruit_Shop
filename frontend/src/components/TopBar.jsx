@@ -51,12 +51,6 @@ const TopBar = () => {
           </span>
         </Link>
 
-        <span
-          className="material-icons md-48"
-          title="sort products by alphabetical"
-        >
-          sort
-        </span>
         <Link to="/LogIn">
           <span className="material-icons md-48" title="go to profile options">
             account_circle
