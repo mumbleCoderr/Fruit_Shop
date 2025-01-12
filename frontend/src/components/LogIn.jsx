@@ -92,6 +92,7 @@ const LogIn = () => {
         <div className="button-div">
           <button
             type="button"
+            id="login-btn"
             className={`btn ${error ? "btn-error" : ""}`}
             onClick={handleSubmit}
           >
