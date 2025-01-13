@@ -36,6 +36,10 @@ const Profile = () => {
       return false;
     }
 
+    if (formData.oldPassword === formData.newPassword) {
+      setError("New password has to be different");
+    }
+
     setError("");
     return true;
   };
@@ -60,19 +64,18 @@ const Profile = () => {
       return;
     }
 
-    //                      DODAC API CALLA
-
     try {
       const token = localStorage.getItem("jwtToken");
+      const { oldPassword, newPassword } = formData;
       const response = await fetch(
-        "http://localhost:8080/user/change-password",
+        "http://localhost:8080/users/changepassword",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ oldPassword, newPassword }),
         }
       );
 
