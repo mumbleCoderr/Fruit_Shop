@@ -1,6 +1,9 @@
 package org.example.backend.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,15 +32,20 @@ public class User implements UserDetails {
     private Set<Authority> authorities;
 
     @Column(unique = true)
+    @NotBlank
     private String username;
 
+    @Size(min = 10)
     private String password;
 
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String surname;
 
     @Column(name = "phone_number")
+    @NotBlank
     private String phoneNumber;
 
 
