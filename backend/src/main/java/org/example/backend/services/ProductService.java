@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.management.ConstructorParameters;
+import javax.naming.NameNotFoundException;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
@@ -38,12 +39,11 @@ public class ProductService {
                 .body(products);
     }
 
-    public ResponseEntity<Product> getProduct(int id){
-        Optional<Product> product = productRepository.findById(id);
+    public ResponseEntity<Product> getProduct(int id) throws NameNotFoundException {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NameNotFoundException());
 
-        if (product.isEmpty()) return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).body(null);
-
-        return ResponseEntity.ok(product.get());
+        return ResponseEntity.ok(product);
     }
 
     public Product addProduct(Product product){

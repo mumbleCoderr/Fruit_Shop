@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.NameNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +35,12 @@ public class ProductController {
         return productService.getAllProducts(page);
     }
     @GetMapping("/noauthority/get/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") int id){
+    public ResponseEntity<Product> getProduct(@PathVariable("id") int id) throws NameNotFoundException {
         return productService.getProduct(id);
     }
 
     @PostMapping("/admin/add")
-    public Product addProduct(@Valid @RequestBody Product product){
+    public Product addProduct(@Validated @RequestBody Product product){
         return productService.addProduct(product);
     }
 
