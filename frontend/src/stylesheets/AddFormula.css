@@ -137,3 +137,45 @@ input{
 .btn-text:hover{
   transform: scale(1.35); 
 }
+
+.error-message {
+  color: red;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.input-div-error {
+  animation: shake 0.5s ease-out;
+}
+
+.shake {
+  animation: shake 0.5s ease-out;
+}
+
+/* @keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.btn-error {
+  background-color: red;
+  color: white;
+}
+
+.btn-error:hover {
+  background-color: darkred;
+}
+ */

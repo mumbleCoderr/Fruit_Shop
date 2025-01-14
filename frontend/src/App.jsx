@@ -5,6 +5,8 @@ import ProductDetail from "./components/ProductDetail";
 import NotFound from "./components/NotFound";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
+import Cart from "./components/Cart";
+import Address from "./components/Address";
 import Profile from "./components/Profile";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TopBar from "./components/TopBar";
@@ -26,6 +28,8 @@ const App = () => {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/Cart" element={<Cart />} />
+        <Route path="/Address" element={<Address />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

@@ -1,72 +1,59 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../stylesheets/TopBar.css";
-import { getUserRole } from "../js/Auth"; // Załóżmy, że masz funkcję getUserRole()
+import { getUserRole } from "../js/Auth";
 
 const TopBar = () => {
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const navigate = useNavigate(); // Hook do nawigacji
+  const navigate = useNavigate();
 
-  // Funkcja, która obsługuje kliknięcie na ikonę konta
   const handleAccountClick = () => {
     const userRole = getUserRole();
 
     if (userRole === "ROLE_ADMIN" || userRole === "ROLE_USER") {
-      navigate("/Profile"); // Jeśli rola to admin lub user, przejdź do /Profile
+      navigate("/Profile");
     } else {
-      navigate("/LogIn"); // Jeśli brak roli lub inna, przejdź do /LogIn
+      navigate("/LogIn");
     }
   };
 
-  const toggleSearchBar = () => {
-    setIsSearchVisible(!isSearchVisible);
+  const userRole = getUserRole();
+
+  const handleCartClick = () => {
+    if (userRole === null) {
+      navigate("/LogIn");
+    } else {
+      navigate("/Cart");
+    }
   };
 
   return (
     <div className="top-div">
       <h2 className="title">fruit shop</h2>
       <div className="right-div">
-        <span
-          className="material-icons md-48"
-          title="open a search bar"
-          onClick={toggleSearchBar}
-        >
-          search
-        </span>
-
-        {isSearchVisible && (
-          <input
-            className="searchbar"
-            type="text"
-            name="search"
-            placeholder="search for a product"
-          />
-        )}
-
         <Link to="/">
           <span className="material-icons md-48" title="go to the home page">
             home
           </span>
         </Link>
 
-        {/* Przekierowanie do /Profile w zależności od roli */}
         <span
           className="material-icons md-48"
           title="go to profile options"
           id="profile-icon"
-          onClick={handleAccountClick} // Funkcja odpowiedzialna za przekierowanie
+          onClick={handleAccountClick}
         >
           account_circle
         </span>
 
-        <Link to="/ShoppingCart">
+        {userRole !== "ROLE_ADMIN" && (
           <span
             className="material-icons md-48"
             title="go to the shopping cart"
+            onClick={handleCartClick}
           >
             shopping_cart
           </span>
-        </Link>
+        )}
       </div>
     </div>
   );

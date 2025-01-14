@@ -1,0 +1,29 @@
+.address-container {
+    display: flex;
+    width: 50%;
+    margin-left: 25%;
+    backdrop-filter: blur(10px);
+  }
+  
+  .left-address-div{
+    width: 70%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .left-address-div form{
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+  }
+
+  .right-address-div{
+    width: 30%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .right-address-div .btn .btn-text{
+    font-size: 4vh;
+    -webkit-text-stroke: 0.2vh black;
+  }
