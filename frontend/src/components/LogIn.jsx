@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getUserRole } from "../js/Auth";
 import "../stylesheets/LogIn.css";
 
 const LogIn = () => {
@@ -48,6 +49,11 @@ const LogIn = () => {
 
       const { token } = response.data;
       localStorage.setItem("jwtToken", token);
+
+      const userRole = getUserRole();
+      if (userRole === "ROLE_USER") {
+        localStorage.setItem("cart", JSON.stringify({}));
+      }
 
       navigate("/");
     } catch (error) {

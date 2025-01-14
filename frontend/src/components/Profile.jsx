@@ -45,7 +45,11 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
+    // localStorage.removeItem("jwtToken");
+    // localStorage.removeItem("cart");
+
+    localStorage.clear();
+
     navigate("/");
   };
 
