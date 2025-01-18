@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import "../stylesheets/Address.css";
+import { createFruitToSend } from "../js/cartUtils";
 
 const Address = () => {
   const [formData, setFormData] = useState({
     addressLine: "",
     addressLine2: "",
-    zipcode: "",
+    zipCode: "",
     city: "",
     country: "",
   });
 
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
+  const [addressId, setAddressId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,10 +26,36 @@ const Address = () => {
   const validateForm = () => {
     return (
       formData.addressLine.trim() &&
-      formData.zipcode.trim() &&
+      formData.zipCode.trim() &&
       formData.city.trim() &&
       formData.country.trim()
     );
+  };
+
+  const handleOrderCall = async (id) => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const formattedCart = createFruitToSend();
+      console.log(formattedCart);
+      const response = await fetch(
+        `http://localhost:8080/order/user/setorder/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formattedCart),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to set order.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("Failed to set the order. Please try again.");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -41,12 +69,14 @@ const Address = () => {
     }
 
     try {
+      const token = localStorage.getItem("jwtToken");
       const response = await fetch(
-        "http://localhost:8080/product/users/order",
+        "http://localhost:8080/order/user/setaddress",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }
@@ -56,11 +86,17 @@ const Address = () => {
         throw new Error("Failed to submit address.");
       }
 
+      const addressId = await response.json();
+      setAddressId(addressId);
+
+      await handleOrderCall(addressId);
+
+      setAddressId(null);
       setError("");
       setFormData({
         addressLine: "",
         addressLine2: "",
-        zipcode: "",
+        zipCode: "",
         city: "",
         country: "",
       });
@@ -97,10 +133,10 @@ const Address = () => {
               />
               <input
                 type="text"
-                name="zipcode"
-                value={formData.zipcode}
+                name="zipCode"
+                value={formData.zipCode}
                 onChange={handleChange}
-                placeholder="Zipcode"
+                placeholder="zipCode"
               />
               <input
                 type="text"
@@ -123,7 +159,6 @@ const Address = () => {
         <div className="right-address-div">
           <button
             className={`btn ${error ? "btn-error" : ""}`}
-            type="submit"
             onClick={handleSubmit}
           >
             <p className="btn-text">SUBMIT</p>
