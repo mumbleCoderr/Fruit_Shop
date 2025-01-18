@@ -28,4 +28,7 @@ public class Product {
 
     @NotBlank(message = "img field is mandatory")
     private String img;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderedProduct> orderedProducts;
 }

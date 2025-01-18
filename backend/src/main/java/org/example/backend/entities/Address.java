@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -33,4 +35,7 @@ public class Address {
 
     @Size(min = 1, max = 100)
     private String country;
+
+    @OneToMany(mappedBy = "address")
+    private List<Order> orders;
 }

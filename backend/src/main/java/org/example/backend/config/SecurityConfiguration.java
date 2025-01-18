@@ -32,6 +32,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/product/noauthority/**").permitAll()
                         .requestMatchers("/product/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/authority/**").authenticated()
+                        .requestMatchers("/product/user/**").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
