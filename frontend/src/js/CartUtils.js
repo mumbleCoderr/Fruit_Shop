@@ -50,4 +50,19 @@ export const removeFruitFromCart = (fruitName) => {
   
     return total;
   };
+
+  export const createFruitToSend = () => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    
+    const fruitMap = {};
+ 
+    for (const key in cart) {
+      const fruitItem = JSON.parse(key);
+
+      fruitMap[fruitItem.id] = cart[key];
+    }
+  
+    return fruitMap;
+  };
+  
   
