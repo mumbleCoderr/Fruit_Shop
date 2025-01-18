@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@Table(name = "`order`")
 public class Order {
 
     @Id
@@ -17,14 +18,17 @@ public class Order {
     private int id;
 
     @ManyToOne
-    @Column(name = "address_id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @ManyToOne
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    LocalDateTime localDateTime;
+    private LocalDateTime date;
+
+    @Column(name = "total_summary")
+    private double totalSummary;
 
     @OneToMany(mappedBy = "order")
     private List<OrderedProduct> orderedProducts;
