@@ -11,6 +11,9 @@ import Profile from "./components/Profile";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import OrderOk from "./components/OrderOk";
+import OrderHistory from "./components/OrderHistory";
+import OrderHistoryItemInfo from "./components/OrderHistoryItemInfo";
+import OrderedItem from "./components/OrderedItem";
 import { getUserRole } from "./js/Auth";
 import AdminPanel from "./components/AdminPanel";
 
@@ -32,6 +35,12 @@ const App = () => {
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Address" element={<Address />} />
         <Route path="/OrderOk" element={<OrderOk />} />
+        <Route path="/OrderHistory" element={<OrderHistory />} />
+        <Route path="/OrderedItem" element={<OrderedItem />} />
+        <Route
+          path="/order-history-item/:id"
+          element={<OrderHistoryItemInfo />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

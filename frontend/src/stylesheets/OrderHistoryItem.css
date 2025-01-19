@@ -1,0 +1,32 @@
+.order-item-right-div{
+    border-left: 1px solid antiquewhite;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.order-item{
+    display: flex;
+    width: 100%;
+    background-color: rgb(35, 35, 35);
+    height: 13vh;
+}
+
+.order-item-left-div{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.order-item-text{
+    font-size: 2.5vh;
+    margin: 1.5vh;
+    font-weight: 700;
+    -webkit-text-stroke: 0.05vh black; 
+}
+

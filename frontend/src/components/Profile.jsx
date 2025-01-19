@@ -45,9 +45,6 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("jwtToken");
-    // localStorage.removeItem("cart");
-
     localStorage.clear();
 
     navigate("/");
@@ -107,10 +104,20 @@ const Profile = () => {
     e.stopPropagation();
   };
 
+  const handleMyOrdersClick = () => {
+    navigate("/OrderHistory");
+  };
+
   return (
     <>
       <h1>MY PROFILE</h1>
       <div className="container">
+        <div className="add-div" onClick={handleMyOrdersClick}>
+          <p className="btn-text" id="profile-btn">
+            MY ORDERS
+          </p>
+        </div>
+
         <div className="add-div" onClick={handleLogout}>
           <p className="btn-text" id="profile-btn">
             LOGOUT
