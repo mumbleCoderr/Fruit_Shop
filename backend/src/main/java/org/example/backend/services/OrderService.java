@@ -36,7 +36,6 @@ public class OrderService {
 
         addressRepository.save(address);
         int addressId = address.getId();
-        System.out.println(addressId);
 
         return ResponseEntity.ok(addressId);
     }
