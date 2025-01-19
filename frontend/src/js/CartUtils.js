@@ -17,7 +17,7 @@ export const createFruitObjectFromCart = () => {
 
   export const calculateFruitTotalPrice = (fruit) => {
     const { price, orderedQuantity } = fruit;
-    return price * orderedQuantity;
+    return parseFloat((price * orderedQuantity).toFixed(2));
   };
 
 export const removeFruitFromCart = (fruitName) => {
@@ -48,7 +48,7 @@ export const removeFruitFromCart = (fruitName) => {
       total += fruitPrice;
     }
   
-    return total;
+    return parseFloat(total.toFixed(2));
   };
 
   export const createFruitToSend = () => {

@@ -33,6 +33,13 @@ const Cart = () => {
   const totalPrice = calculateTotalPrice();
 
   const handleOrderClick = () => {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+
+    if (!cart || Object.keys(cart).length === 0) {
+      alert("Your cart is empty. Please add items to proceed.");
+      return;
+    }
+
     if (!localStorage.getItem("totalPrice")) {
       localStorage.setItem("totalPrice", totalPrice.toString());
     }
