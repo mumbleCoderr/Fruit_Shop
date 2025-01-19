@@ -14,6 +14,9 @@ import OrderOk from "./components/OrderOk";
 import OrderHistory from "./components/OrderHistory";
 import OrderHistoryItemInfo from "./components/OrderHistoryItemInfo";
 import OrderedItem from "./components/OrderedItem";
+import AdminOrders from "./components/AdminOrders";
+import AdminOrderItem from "./components/AdminOrderItem";
+import AdminOrderItemInfo from "./components/AdminOrderItemInfo";
 import { getUserRole } from "./js/Auth";
 import AdminPanel from "./components/AdminPanel";
 
@@ -37,10 +40,14 @@ const App = () => {
         <Route path="/OrderOk" element={<OrderOk />} />
         <Route path="/OrderHistory" element={<OrderHistory />} />
         <Route path="/OrderedItem" element={<OrderedItem />} />
+        <Route path="/AdminOrders" element={<AdminOrders />} />
+        <Route path="/AdminOrderItem" element={<AdminOrderItem />} />
+        <Route path="/AdminOrderItemInfo" element={<AdminOrderItemInfo />} />
         <Route
           path="/order-history-item/:id"
           element={<OrderHistoryItemInfo />}
         />
+        <Route path="/order-info/:id" element={<AdminOrderItemInfo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
