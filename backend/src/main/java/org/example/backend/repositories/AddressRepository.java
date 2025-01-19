@@ -1,6 +1,7 @@
 package org.example.backend.repositories;
 
 import org.example.backend.entities.Address;
+import org.example.backend.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,4 +17,5 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
             """
     )
     Optional<Address> findAddressById(int id);
+
 }

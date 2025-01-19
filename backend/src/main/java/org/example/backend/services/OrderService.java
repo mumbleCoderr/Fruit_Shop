@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.backend.dtos.AddressDto;
 import org.example.backend.entities.*;
 import org.example.backend.repositories.*;
+import org.example.backend.utils.OrderAddressResponse;
 import org.example.backend.utils.OrderedProductsResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -111,7 +112,7 @@ public class OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("order not found"));
 
-        if (order.getUser().getId() != user.getId()) throw new AccessDeniedException("");
+        if (order.getUser().getId() != user.getId() && user.getAuthorities().contains("ROLE_ADMIN")) throw new AccessDeniedException("");
 
         List<OrderedProduct> orderedProductList = orderedProductRepository.findByOrder(order)
                 .orElseThrow(() -> new NoSuchElementException("no ordered products found"));
@@ -134,5 +135,32 @@ public class OrderService {
         });
 
         return ResponseEntity.ok(response);
+    }
+
+    public ResponseEntity<List<Order>> getallOrdersAdmin(){
+        List<Order> orders = orderRepository.findAll();
+
+        return ResponseEntity.ok(orders);
+    }
+
+    public ResponseEntity<OrderAddressResponse> getOrderAddress(int id){
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("order not found"));
+
+        Address address = addressRepository.findAddressById(order.getAddress().getId())
+                .orElseThrow(() -> new NoSuchElementException("address not found"));
+
+        User user = userRepository.findUserByUsername(order.getUser().getUsername())
+                .orElseThrow(() -> new NoSuchElementException("username not found"));
+
+        OrderAddressResponse oar = new OrderAddressResponse();
+        oar.setUserName(user.getUsername());
+        oar.setAddressLine(address.getAddressLine());
+        oar.setAddressLine2(address.getAddressLine2());
+        oar.setZipCode(address.getZipCode());
+        oar.setCity(address.getCity());
+        oar.setCountry(address.getCountry());
+
+        return ResponseEntity.ok(oar);
     }
 }

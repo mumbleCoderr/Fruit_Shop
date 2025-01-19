@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/product/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/authority/**").authenticated()
                         .requestMatchers("/order/user/**").hasAuthority("ROLE_USER")
+                        .requestMatchers("/order/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
