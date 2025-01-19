@@ -13,7 +13,7 @@ const AdminPanel = () => {
   return (
     <>
       <div className="item-list-container">
-        <h1 id="admin-panel-header">Admin Panel</h1>
+        <h1 id="admin-panel-header">ADMIN PANEL</h1>
         <AddFormula />
 
         <div className="add-div" onClick={toggleListItems}>

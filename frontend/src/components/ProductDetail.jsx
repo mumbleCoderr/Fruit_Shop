@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getUserRole } from "../js/Auth";
 import "../stylesheets/ProductDetail.css";
 
 const ProductDetail = () => {
@@ -12,6 +13,7 @@ const ProductDetail = () => {
   const [showPhoto, setShowPhoto] = useState(false);
   const [quantity, setQuantity] = useState("");
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const userRole = getUserRole();
 
   useEffect(() => {
     const fetchFruit = async () => {
@@ -82,6 +84,24 @@ const ProductDetail = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
 
+  const handleRemoveProduct = async () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+
+    try {
+      await axios.delete(`http://localhost:8080/product/admin/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      });
+
+      alert("Product removed successfully!");
+      navigate("/");
+    } catch (err) {
+      console.error("Error response:", err.response); // Dodaj to
+      alert("Failed to remove the product. Please try again.");
+    }
+  };
+
   if (!fruit) {
     return null;
   }
@@ -112,7 +132,11 @@ const ProductDetail = () => {
           }`}
           onClick={() => setIsFormVisible(true)}
         >
-          {!isFormVisible ? (
+          {userRole === "ROLE_ADMIN" ? (
+            <div className="cart-div" onClick={handleRemoveProduct}>
+              <p className="cart-text">REMOVE PRODUCT</p>
+            </div>
+          ) : !isFormVisible ? (
             <p className="cart-text">ADD PRODUCT TO CART</p>
           ) : (
             <form onSubmit={handleAddToCart}>
