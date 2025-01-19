@@ -2,10 +2,12 @@ package org.example.backend.controllers;
 
 import lombok.AllArgsConstructor;
 import org.example.backend.dtos.AddressDto;
+import org.example.backend.entities.Address;
 import org.example.backend.entities.Order;
 import org.example.backend.entities.OrderedProduct;
 import org.example.backend.entities.Product;
 import org.example.backend.services.OrderService;
+import org.example.backend.utils.OrderAddressResponse;
 import org.example.backend.utils.OrderedProductsResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -42,5 +44,20 @@ public class OrderController {
     @GetMapping("/user/get/{id}")
     public ResponseEntity<List<OrderedProductsResponse>> getOrder(@PathVariable("id") int id) throws AccessDeniedException {
         return orderService.getOrder(id);
+    }
+
+    @GetMapping("/admin/getallorders")
+    public ResponseEntity<List<Order>> getallOrdersAdmin(){
+        return orderService.getallOrdersAdmin();
+    }
+
+    @GetMapping("/admin/get/{id}")
+    public ResponseEntity<List<OrderedProductsResponse>> getOrderAdmin(@PathVariable("id") int id) throws AccessDeniedException {
+        return orderService.getOrder(id);
+    }
+
+    @GetMapping("/admin/getorderaddress/{id}")
+    public ResponseEntity<OrderAddressResponse> getOrderAddress(@PathVariable("id") int id){
+        return orderService.getOrderAddress(id);
     }
 }
