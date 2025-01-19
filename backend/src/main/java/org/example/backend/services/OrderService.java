@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import org.example.backend.dtos.AddressDto;
 import org.example.backend.entities.*;
 import org.example.backend.repositories.*;
+import org.example.backend.utils.OrderedProductsResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -79,6 +78,7 @@ public class OrderService {
             orderedProductList.add(orderedProduct);
         }
 
+        totalSummary = Math.round(totalSummary * 100.0) / 100.0;
         order.setTotalSummary(totalSummary);
         order.setOrderedProducts(orderedProductList);
 
@@ -86,5 +86,53 @@ public class OrderService {
         orderedProductRepository.saveAll(orderedProductList);
 
         return ResponseEntity.ok().build();
+    }
+
+    public ResponseEntity<List<Order>> getAllOrders(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("username not found"));
+
+        List<Order> orders = orderRepository.getAllByUser(user)
+                .orElseThrow(() -> new NoSuchElementException("no orders found"));
+
+        return ResponseEntity.ok(orders);
+    }
+
+    public ResponseEntity<List<OrderedProductsResponse>> getOrder(int id) throws AccessDeniedException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("username not found"));
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("order not found"));
+
+        if (order.getUser().getId() != user.getId()) throw new AccessDeniedException("");
+
+        List<OrderedProduct> orderedProductList = orderedProductRepository.findByOrder(order)
+                .orElseThrow(() -> new NoSuchElementException("no ordered products found"));
+
+        List<OrderedProductsResponse> response = new ArrayList<>();
+
+
+        orderedProductList.forEach(o -> {
+            Product product = productRepository.findById(o.getProduct().getId())
+                            .orElseThrow(() -> new NoSuchElementException("product not found"));
+
+            OrderedProductsResponse opr = new OrderedProductsResponse();
+            opr.setName(product.getName());
+            opr.setPrice(product.getPrice());
+            opr.setImg(product.getImg());
+            opr.setOrderedQuantity(o.getQuantity());
+            double priceForProduct = product.getPrice() * o.getQuantity();
+            opr.setPriceForProduct(Math.round(priceForProduct * 100.0) / 100.0);
+            response.add(opr);
+        });
+
+        return ResponseEntity.ok(response);
     }
 }
