@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../stylesheets/Address.css";
+import { useNavigate } from "react-router-dom";
 import { createFruitToSend } from "../js/cartUtils";
 
 const Address = () => {
@@ -14,6 +15,8 @@ const Address = () => {
   const [error, setError] = useState("");
   const [shake, setShake] = useState(false);
   const [addressId, setAddressId] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +39,6 @@ const Address = () => {
     try {
       const token = localStorage.getItem("jwtToken");
       const formattedCart = createFruitToSend();
-      console.log(formattedCart);
       const response = await fetch(
         `http://localhost:8080/order/user/setorder/${id}`,
         {
@@ -52,6 +54,9 @@ const Address = () => {
       if (!response.ok) {
         throw new Error("Failed to set order.");
       }
+
+      localStorage.setItem("cart", JSON.stringify({}));
+      navigate("/OrderOk");
     } catch (error) {
       console.error("Error:", error);
       setError("Failed to set the order. Please try again.");
