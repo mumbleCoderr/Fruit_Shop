@@ -44,6 +44,11 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
+    @DeleteMapping("/admin/delete/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("id") int id){
+        return productService.deleteProduct(id);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(

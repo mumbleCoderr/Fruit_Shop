@@ -15,6 +15,7 @@ import javax.management.ConstructorParameters;
 import javax.naming.NameNotFoundException;
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -41,12 +42,21 @@ public class ProductService {
 
     public ResponseEntity<Product> getProduct(int id) throws NameNotFoundException {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new NameNotFoundException());
+                .orElseThrow(() -> new NoSuchElementException("product not found"));
 
         return ResponseEntity.ok(product);
     }
 
     public Product addProduct(Product product){
         return productRepository.save(product);
+    }
+
+    public ResponseEntity<String> deleteProduct(int id){
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("product not found"));
+
+        productRepository.delete(product);
+
+        return ResponseEntity.ok("product: " + product.getName() + " deleted successfully");
     }
 }
