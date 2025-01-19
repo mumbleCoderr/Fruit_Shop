@@ -1,0 +1,31 @@
+.order-address-item{
+    height: 19vh;
+    background-color: rgb(27, 27, 27);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.order-address-left-div{
+    width: 50%;
+}
+
+.order-address-right-div{
+    border-left: 1px solid antiquewhite;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-address-item-text{
+    font-size: 2vh;
+    margin: 0.5vh;
+    margin-left: 1vh;
+}
+
+#order-address-item-title{
+    font-size: 2.5vh;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
