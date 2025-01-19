@@ -1,5 +1,6 @@
 package org.example.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -37,5 +38,6 @@ public class Address {
     private String country;
 
     @OneToMany(mappedBy = "address")
+    @JsonIgnore
     private List<Order> orders;
 }

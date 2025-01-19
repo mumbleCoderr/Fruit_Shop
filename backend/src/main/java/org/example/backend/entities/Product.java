@@ -1,5 +1,6 @@
 package org.example.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -30,5 +31,6 @@ public class Product {
     private String img;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderedProduct> orderedProducts;
 }
