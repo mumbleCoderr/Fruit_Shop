@@ -112,11 +112,13 @@ const Profile = () => {
     <>
       <h1>MY PROFILE</h1>
       <div className="container">
-        <div className="add-div" onClick={handleMyOrdersClick}>
-          <p className="btn-text" id="profile-btn">
-            MY ORDERS
-          </p>
-        </div>
+        {userRole !== "ROLE_ADMIN" && (
+          <div className="add-div" onClick={handleMyOrdersClick}>
+            <p className="btn-text" id="profile-btn">
+              MY ORDERS
+            </p>
+          </div>
+        )}
 
         <div className="add-div" onClick={handleLogout}>
           <p className="btn-text" id="profile-btn">
