@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../stylesheets/SignUp.css";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -14,7 +17,6 @@ const SignUp = () => {
   const [error, setError] = useState(false);
   const [shake, setShake] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
@@ -102,6 +104,7 @@ const SignUp = () => {
 
       const data = await response.json();
       setSuccessMessage("Sign up successful!");
+      alert("Sign up successful!");
       console.log("Response from server:", data);
 
       setFormData({
@@ -112,6 +115,8 @@ const SignUp = () => {
         surname: "",
         phone_number: "",
       });
+
+      navigate("/LogIn");
     } catch (err) {
       setError(true);
       setErrorMessage(err.message);

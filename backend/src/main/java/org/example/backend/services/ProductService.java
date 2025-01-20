@@ -23,7 +23,7 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final int productsOnPage = 5;
+    private final int productsOnPage = 8;
 
     public ResponseEntity<Integer> getTotalPages(){
         long productsQuantity = productRepository.count();
